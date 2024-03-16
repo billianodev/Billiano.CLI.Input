@@ -9,15 +9,18 @@ internal class Test
 		{
 			BackColor = ConsoleColor.Blue
 		};
+		options.OnInputReceived += Options_OnInputReceived;
 
-		CLInput input = new CLInput(options, (obj, s) =>
-		{
-			Console.WriteLine(s);
-		});
+		CLInput input = new CLInput(options);
 		input.Initalize();
 
 		// Do other stuff
 		CancellationToken.None.WaitHandle.WaitOne();
+	}
+
+	private static void Options_OnInputReceived(object sender, string e)
+	{
+
 	}
 }
 #endif

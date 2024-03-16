@@ -6,14 +6,15 @@ namespace Billiano.CLI.Input;
 /// 
 /// </summary>
 /// <param name="options"></param>
-/// <param name="onInput"></param>
-public class CLInput(CLInputOptions options, EventHandler<string> onInput)
+public class CLInput(CLInputOptions options)
 {
-
 	private CancellationTokenSource? cts;
 	
-	/// <inheritdoc/>
-	public CLInput(EventHandler<string> onInput) : this(new CLInputOptions(), onInput)
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="onInputReceived"></param>
+	public CLInput(EventHandler<string> onInputReceived) : this(new CLInputOptions(onInputReceived))
 	{
 	}
 
@@ -124,7 +125,7 @@ public class CLInput(CLInputOptions options, EventHandler<string> onInput)
 			string s = str.ToString();
 			if (s.Length > 0)
 			{
-				onInput.Invoke(this, s);
+				options.WriteInput(this, s);
 			}
 
 			void Write()

@@ -8,6 +8,11 @@ public class CLInputOptions
 	/// <summary>
 	/// 
 	/// </summary>
+	public event EventHandler<string>? OnInputReceived;
+
+	/// <summary>
+	/// 
+	/// </summary>
 	public ConsoleColor? ForeColor { get; set; } 
 	
 	/// <summary>
@@ -24,4 +29,18 @@ public class CLInputOptions
 	/// 
 	/// </summary>
 	public char Caret {  get; set; } = '_';
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public CLInputOptions()
+	{
+	}
+
+	internal CLInputOptions(EventHandler<string> onInputReceived)
+	{
+		OnInputReceived += onInputReceived;
+	}
+
+	internal void WriteInput(object obj, string e) => OnInputReceived?.Invoke(obj, e);
 }
